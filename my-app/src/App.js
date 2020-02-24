@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ReviewItems from './Reviews';
+import PropTypes from 'prop-types'
 
 function App() {
   return (
@@ -22,10 +23,10 @@ function FotoProduk() {
 }
 
 function CheckDiscount(props) {
-  const { isDiscount } = props;
+  const { isDiscount, discount } = props;
   if (isDiscount == "yes") {
     return (
-      <p>Diskon 50% Off</p>
+      <p>Diskon {discount}% Off</p>
     );
   }
   else if (isDiscount == "coming") {
@@ -45,7 +46,7 @@ function ProdukInfo(props) {
   const { category, name, isDiscount } = props;
   const benefits = ["Tidak kusut terkena air", "Bahan lebih halus", "Tidak membuat gerah kaki"]
   const listBenefits = benefits.map((itemBenefits) =>
-    <li>{itemBenefits}</li>
+    <li key={itemBenefits} >{itemBenefits}</li>
   );
   return (
     <div>
@@ -53,7 +54,7 @@ function ProdukInfo(props) {
         <p className="Cate">{category}</p>
         <h1 className="Title">{name}</h1>
         <p className="Price">IDR 12.000.000</p>
-        <strong><CheckDiscount isDiscount={isDiscount} ></CheckDiscount></strong>
+        <strong><CheckDiscount isDiscount={isDiscount} discount={50}></CheckDiscount></strong>
         <p className="Info">
           Cupidatat consectetur adipisicing officia esse. Consequat aliquip quis excepteur consectetur dolore in. Eu deserunt ea Lorem enim. Magna excepteur voluptate ea ullamco ad anim duis ea laboris magna sint eiusmod commodo eiusmod.
           Aliquip sunt amet cillum fugiat velit. Nulla nisi id nisi anim veniam esse aliqua duis nostrud aliqua ipsum qui. Elit velit labore laborum in adipisicing exercitation tempor duis. Ea proident incididunt ullamco elit velit ad ut commodo eiusmod sit magna duis nulla.
@@ -70,6 +71,10 @@ function ProdukInfo(props) {
 function AddCart(e) {
   return console.log("Membeli Produk " + e)
 }
+
+CheckDiscount.propTypes = {
+  discount: PropTypes.number
+};
 
 
 export default App;
